@@ -30,4 +30,8 @@ public class Shoppe {
     public Shoppe(){
 
     }
+
+    public Long getId() {
+        return id;
+    }
 }
