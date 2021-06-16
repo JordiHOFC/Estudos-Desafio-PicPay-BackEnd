@@ -1,5 +1,6 @@
 package br.com.desafiobackend.picpay.transacoes.validators;
 
+import br.com.desafiobackend.picpay.transacoes.users.TipoConta;
 import br.com.desafiobackend.picpay.transacoes.users.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +45,7 @@ class UniqueValueValidatorTest {
     @DisplayName("nao deve ser valido ao inserir um email ja cadastrado")
     @Transactional
     public void test1(){
-        manager.persist(new User("Jordi Henrique Marques da Silva","385.125.290-08","jordi@email.com","123456"));
+        manager.persist(new User("Jordi Henrique Marques da Silva","385.125.290-08","jordi@email.com","123456", TipoConta.PESSOAL));
         validator.initialize(testCase);
         boolean valid = validator.isValid("jordi@email.com", context);
         assertFalse(valid);
