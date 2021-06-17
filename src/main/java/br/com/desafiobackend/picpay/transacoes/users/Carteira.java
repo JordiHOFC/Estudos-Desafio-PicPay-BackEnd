@@ -17,8 +17,12 @@ public class Carteira {
 
     private BigDecimal saldo=new BigDecimal("0.0");
 
-    @OneToMany(cascade = {PERSIST,MERGE})
-    private List<Transacao> transacoes=new ArrayList<>();
+    @OneToMany(mappedBy = "beneficiado",cascade = {PERSIST,MERGE})
+    private List<Transacao> recebimentos=new ArrayList<>();
+
+    @OneToMany(mappedBy = "pagador",cascade = {PERSIST,MERGE})
+    private List<Transacao> pagamentos=new ArrayList<>();
+
 
     public Carteira(User portador, BigDecimal saldo) {
         this.portador = portador;
@@ -30,19 +34,26 @@ public class Carteira {
 
     public void depositar(BigDecimal valor, Transacao transacao){
         this.saldo=saldo.add(valor);
-        associarTransacao(transacao);
+        associarDeposito(transacao);
     }
     public void sacar(BigDecimal valor, Transacao transacao){
         this.saldo=saldo.subtract(valor);
-        associarTransacao(transacao);
+        associarPagamento(transacao);
 
     }
 
-    public void associarTransacao(Transacao transacao){
-        this.transacoes.add(transacao);
+    public void associarDeposito(Transacao transacao){
+        this.recebimentos.add(transacao);
     }
+    public void associarPagamento(Transacao transacao){ this.pagamentos.add(transacao);}
 
     public BigDecimal getSaldo() {
         return saldo;
+    }
+    public List<Transacao> getTransacoes(){
+        List<Transacao> transacoes= new ArrayList<>();
+        transacoes.addAll(recebimentos);
+        transacoes.addAll(pagamentos);
+        return transacoes;
     }
 }

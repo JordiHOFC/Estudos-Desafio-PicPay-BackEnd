@@ -17,16 +17,16 @@ public class Transacao {
     private Carteira pagador;
 
     @ManyToOne
-    private Carteira beneficado;
+    private Carteira beneficiado;
 
     @CreationTimestamp
     private LocalDateTime transferidoEm=LocalDateTime.now();
 
     private BigDecimal valor;
 
-    public Transacao(User pagador, User beneficado, Carteira carteira, BigDecimal valor) {
+    public Transacao(User pagador, User beneficiado, BigDecimal valor) {
         this.pagador = pagador.getCarteira();
-        this.beneficado = beneficado.getCarteira();
+        this.beneficiado = beneficiado.getCarteira();
         this.valor=valor;
 
     }
@@ -42,8 +42,8 @@ public class Transacao {
         return pagador;
     }
 
-    public Carteira getBeneficado() {
-        return beneficado;
+    public Carteira getBeneficiado() {
+        return beneficiado;
     }
 
     public LocalDateTime getTransferidoEm() {
