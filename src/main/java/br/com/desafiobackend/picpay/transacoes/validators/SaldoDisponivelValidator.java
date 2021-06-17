@@ -23,4 +23,5 @@ public class SaldoDisponivelValidator implements ConstraintValidator<SaldoDispon
         }
         return false;
     }
+
 }

@@ -14,10 +14,6 @@ public class NaoLojistaValidator implements ConstraintValidator<isNaoLojista,Lon
         this.manager = manager;
     }
 
-    @Override
-    public void initialize(isNaoLojista constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
 
     @Override
     public boolean isValid(Long id, ConstraintValidatorContext constraintValidatorContext) {
