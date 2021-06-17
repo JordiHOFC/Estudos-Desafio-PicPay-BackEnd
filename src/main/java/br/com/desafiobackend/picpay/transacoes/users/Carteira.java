@@ -17,7 +17,7 @@ public class Carteira {
 
     private BigDecimal saldo=new BigDecimal("0.0");
 
-    @OneToMany(mappedBy = "carteira", cascade = {PERSIST,MERGE})
+    @OneToMany(cascade = {PERSIST,MERGE})
     private List<Transacao> transacoes=new ArrayList<>();
 
     public Carteira(User portador, BigDecimal saldo) {

@@ -14,23 +14,19 @@ public class Transacao {
     private String id= UUID.randomUUID().toString();
 
     @ManyToOne
-    private User pagador;
+    private Carteira pagador;
 
     @ManyToOne
-    private User beneficado;
+    private Carteira beneficado;
 
     @CreationTimestamp
     private LocalDateTime transferidoEm=LocalDateTime.now();
 
     private BigDecimal valor;
 
-    @ManyToOne
-    private Carteira carteira;
-
     public Transacao(User pagador, User beneficado, Carteira carteira, BigDecimal valor) {
-        this.pagador = pagador;
-        this.beneficado = beneficado;
-        this.carteira = carteira;
+        this.pagador = pagador.getCarteira();
+        this.beneficado = beneficado.getCarteira();
         this.valor=valor;
 
     }
@@ -42,11 +38,11 @@ public class Transacao {
         return id;
     }
 
-    public User getPagador() {
+    public Carteira getPagador() {
         return pagador;
     }
 
-    public User getBeneficado() {
+    public Carteira getBeneficado() {
         return beneficado;
     }
 
@@ -54,9 +50,7 @@ public class Transacao {
         return transferidoEm;
     }
 
-    public Carteira getCarteira() {
-        return carteira;
-    }
+
 
     public BigDecimal getValor() {
         return valor;
