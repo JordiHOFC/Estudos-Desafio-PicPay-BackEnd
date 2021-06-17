@@ -1,0 +1,1 @@
+insert into user (documento,email,name,password,tipo_conta) values ("042.398.520-56","admin@admin.com","admin","$2a$10$J59TmPzuRNP1Y49HCAZB8epbPGl2iJ0EpkDlS8PmH7AU9SEa.3yHu","PESSOAL")

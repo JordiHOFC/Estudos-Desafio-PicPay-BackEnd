@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/transaction")
@@ -30,18 +32,26 @@ public class TransacaoController {
 
     @PostMapping
     public ResponseEntity<?> realizarTransferencia(@RequestBody @Valid TransacaoRequest request) {
-        authorizationClient.solicitaAuthorization();
-       return  controleDeTransacaoPragmatico.executa(() -> {
+
+        return controleDeTransacaoPragmatico.executa(() -> {
             User pagador = manager.find(User.class, request.getPagador());
             User beneficiado = manager.find(User.class, request.getBeneficiado());
-
+            try {
+                authorizationClient.solicitaAuthorization();
+            } catch (Exception e) {
+              return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+            }
             Transacao transacao = new Transacao(pagador, beneficiado, request.getValor());
             pagador.sacar(request.getValor(), transacao);
-            beneficiado.depositar(request.getValor(),transacao);
-           notificationClient.notificationOk();
-           return ResponseEntity.status(HttpStatus.CREATED).build();
+            beneficiado.depositar(request.getValor(), transacao);
+            try {
+                notificationClient.notificationOk();
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+            }
+            URI uri = UriComponentsBuilder.fromUriString("/transaction/{id}").buildAndExpand(transacao.getId()).toUri();
+            return ResponseEntity.status(HttpStatus.CREATED).location(uri).build();
         });
-
 
 
     }
