@@ -1,0 +1,26 @@
+version: '3'
+services:
+  simple-picpay:
+    build: ./
+    image: jordi/picpay:0.1
+    ports:
+      - 8080:8080
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/picpay
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      SYSTEM_AUTHORIZATION: https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6
+      SYSTEM_NOTIFICATION: http://o4d9z.mocklab.io/notify
+      SECRET_JWT: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQSUNQQVkgQVBJIiwic3ViIjoiMyIsImlhdCI6MTYyMzkzOTU4NCwiZXhwIjoxNjI0ODAzNTg0fQ.3OIy_dtNxb7R5eeZ0IWknFV_hHFSHQqXhKPFAMQc78g
+      EXPIRATION_JWT: 864000000
+    depends_on:
+        - mysql
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: picpay
