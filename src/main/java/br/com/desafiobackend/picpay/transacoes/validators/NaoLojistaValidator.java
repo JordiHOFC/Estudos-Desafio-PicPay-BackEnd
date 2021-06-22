@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class NaoLojistaValidator implements ConstraintValidator<isNaoLojista,Long> {
+public class NaoLojistaValidator implements ConstraintValidator<IsNaoLojista,Long> {
     private final EntityManager manager;
 
     public NaoLojistaValidator(EntityManager manager) {

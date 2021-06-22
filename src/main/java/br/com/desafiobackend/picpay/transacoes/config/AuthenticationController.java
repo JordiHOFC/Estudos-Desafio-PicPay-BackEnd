@@ -30,8 +30,7 @@ public class AuthenticationController {
         UsernamePasswordAuthenticationToken authentication = request.paraAuthentication();
         Authentication auth = authenticationManager.authenticate(authentication);
         String token = jwtTokens.gerarToken(auth);
-        String bodyToken = "Bearer " + token;
-        return ResponseEntity.status(OK).header("Authorization", token).body(bodyToken);
+        return ResponseEntity.status(OK).header("Authorization", token).body(new AuthenticationResponse(token));
 
     }
 }

@@ -2,7 +2,7 @@ package br.com.desafiobackend.picpay.transacoes.users;
 
 import br.com.desafiobackend.picpay.transacoes.validators.ExistId;
 import br.com.desafiobackend.picpay.transacoes.validators.SaldoDisponivel;
-import br.com.desafiobackend.picpay.transacoes.validators.isNaoLojista;
+import br.com.desafiobackend.picpay.transacoes.validators.IsNaoLojista;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +16,7 @@ public class TransacaoRequest {
     private BigDecimal valor;
 
     @JsonProperty
-    @isNaoLojista
+    @IsNaoLojista
     @NotNull
     @ExistId
     private Long pagador;

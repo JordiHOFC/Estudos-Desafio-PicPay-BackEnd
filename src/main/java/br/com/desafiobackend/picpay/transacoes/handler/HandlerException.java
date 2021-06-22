@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
-public class Handler {
+public class HandlerException {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException e){
         List<String> erros= new ArrayList<>();

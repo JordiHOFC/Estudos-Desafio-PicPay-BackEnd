@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = {NaoLojistaValidator.class})
-public @interface isNaoLojista {
+public @interface IsNaoLojista {
     String message() default "operação não disponivel para Lojistas.";
 
     Class<?>[] groups() default {};
